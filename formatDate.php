@@ -57,17 +57,26 @@ enum Month
 
 function custom_date($format){
     $words = explode(" ",$format);
-    echo MonthsOfYear::Jan;
+    // echo MonthsOfYear::Jan;
     $word = count($words);
     if ($word ==3){
+        try{
         $format = explode(" ", $format);
-        echo $format[2].'-'.MonthsOfYear::$format[0].'-'.$format[1];
+        $month = MonthsOfYear::$format[0];
+        echo $format[2].'-'.$month.'-'.$format[1];
+        }catch(Exception $e){
+            echo "Invalid format";
+        }
     }else if($word == 1){
+        try{
         $month = substr($format, 0, 2);
         $day = substr($format, 2, 2);
         $year = substr($format, 4, 4);
         $format = constant("Month::_$month")->getIt()."-".$day."-".$year;
         echo $format;
+        }catch(Exception $e){
+            echo "Invalid format";
+        }
 
     }
     else{
